@@ -1,6 +1,6 @@
 # pages/dashboard.py
 import streamlit as st
-from utils.db_operations import get_applications, add_application, update_application, delete_application, upload_resume, link_resume_to_application, delete_resume
+from utils.db_operations import link_coverletter_to_application,get_applications, add_application, update_application, delete_application, upload_resume, link_resume_to_application, delete_resume
 import pandas as pd
 import plotly.express as px
 from streamlit_pdf_viewer import pdf_viewer
@@ -33,6 +33,7 @@ with st.expander("➕ Add New Application", expanded=False):
         status = st.selectbox("Status", ["Applied", "Interview", "Offer", "Rejected"], key="status")
         notes = st.text_area("Notes", key="notes")
         resume = st.file_uploader("Upload Resume (PDF)", type=["pdf"], key="resume")
+        coverletter = st.file_uploader("Upload Cover Letter (PDF)", type=["pdf"], key="coverletter")
         submitted = st.form_submit_button("Save Application")
         if submitted:
             # Add application
@@ -44,6 +45,10 @@ with st.expander("➕ Add New Application", expanded=False):
                 resume_url = upload_resume(resume, st.session_state.user.id)
                 if resume_url:
                     link_resume_to_application(app_id, resume_url)
+            if coverletter:
+                coverletter_url = upload_resume(coverletter, st.session_state.user.id)
+                if coverletter_url:
+                    link_coverletter_to_application(app_id, coverletter_url)        
             st.success("Application added!")
             st.rerun()  # Refresh the page
 
@@ -84,7 +89,8 @@ for _, row in df.iterrows():
                 # Delete the resume from Supabase Storage (if it exists)
                 if row["resume_url"]:
                     delete_resume(row["resume_url"])
-                
+                if row["cover_letter_url"]:
+                    delete_resume(row["cover_letter_url"])
                 # Delete the application from the database
                 delete_application(row["id"])
                 st.rerun()
@@ -97,7 +103,13 @@ for _, row in df.iterrows():
                 st.markdown(f"[Open Resume in New Tab]({row['resume_url']})", unsafe_allow_html=True)
                 # Embed PDF using Google Docs Viewer
                 google_docs_url = f"https://docs.google.com/viewer?url={row['resume_url']}&embedded=true"
-                st.components.v1.iframe(google_docs_url, width=700, height=500)
+                st.components.v1.iframe(google_docs_url, width=600, height=500)
+        if row["cover_letter_url"]:
+            if st.button(f"📄 View Cover Letter for {row['company']}", key=f"view_coverletter_{row['id']}"):
+                st.markdown(f"[Open Cover Letter in New Tab]({row['cover_letter_url']})", unsafe_allow_html=True)
+                # Embed PDF using Google Docs Viewer
+                google_docs_url = f"https://docs.google.com/viewer?url={row['cover_letter_url']}&embedded=true"
+                st.components.v1.iframe(google_docs_url, width=600, height=500)        
 
 # Analytics Section
 st.header("Analytics")

@@ -80,3 +80,15 @@ def link_resume_to_application(app_id, resume_url):
             st.error("Failed to link resume URL.")
     except Exception as e:
         st.error(f"Link error: {e}")
+
+def link_coverletter_to_application(app_id, resume_url):
+    try:
+        # Update application with resume URL
+        print(resume_url)
+        response = supabase.table('applications').update({"cover_letter_url": resume_url}).eq('id', app_id).execute()
+        if response.data:
+            st.success("Cover Letter URL linked to application!")
+        else:
+            st.error("Failed to link resume URL.")
+    except Exception as e:
+        st.error(f"Link error: {e}")        

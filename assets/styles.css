@@ -1,0 +1,19 @@
+/* Hide default Streamlit menu and footer */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Auth form styling */
+.stTab [data-baseweb="tab-list"] {
+    gap: 0.5rem;
+}
+
+.stTab button [data-testid="stMarkdownContainer"] {
+    font-weight: 600;
+}
+
+.stForm {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}

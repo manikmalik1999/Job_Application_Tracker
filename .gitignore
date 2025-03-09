@@ -12,3 +12,4 @@ __pycache__/
 
 # Streamlit secrets folder
 .streamlit/  # <-- Add this line
+.devcontainer

@@ -1,0 +1,14 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+.venv/
+
+# Streamlit secrets folder
+.streamlit/  # <-- Add this line

@@ -11,5 +11,5 @@ __pycache__/
 .venv/
 
 # Streamlit secrets folder
-.streamlit/  # <-- Add this line
+.streamlit/
 .devcontainer/

@@ -1,5 +1,6 @@
 streamlit==1.33.0
 supabase==2.3.1
+st-supabase-connection==2.3.1
 python-dotenv==1.0.0
 pandas==2.1.1
 plotly==5.18.0

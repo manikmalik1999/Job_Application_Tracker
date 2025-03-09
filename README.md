@@ -2,9 +2,6 @@
 
 A web app built with **Streamlit** and **Supabase** to track job applications, manage resumes/cover letters, and visualize application statuses.
 
-![Demo Screenshot](https://via.placeholder.com/800x400.png?text=Job+Application+Tracker+Demo) 
-*(Replace with your app screenshot)*
-
 ---
 
 ## Features ✨
